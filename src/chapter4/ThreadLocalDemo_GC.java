@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public class ThreadLocalDemo_GC {
     static volatile ThreadLocal<SimpleDateFormat> threadLocal = new ThreadLocal<SimpleDateFormat>() {
         protected void finalize() throws Throwable {
-            System.out.println(this.toString() + " is gc");
+            System.out.println("TL "+this.toString() + " is gc");
         }
     };
 
@@ -33,13 +33,14 @@ public class ThreadLocalDemo_GC {
                 if (threadLocal.get() == null) {
                     threadLocal.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") {
                         protected void finalize() throws Throwable {
-                            System.out.println(this.toString() + " is gc");
+                            System.out.println("RUN "+this.toString() + " is gc");
                         }
                     });
                     System.out.println(Thread.currentThread().getId() + " create SimpleDatFormat");
                 }
                 Date date = threadLocal.get().parse("2017-05-06 12:33:" + i % 60);
-                System.out.println(i + ":" + date);
+//                System.out.println(i<10?("0"+i):(i) + ":" + date);
+//                System.out.println(i + ":" + date);
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
