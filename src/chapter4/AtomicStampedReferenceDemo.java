@@ -11,7 +11,9 @@ public class AtomicStampedReferenceDemo {
     public static void main(String args[]) {
 
         for (int i = 0; i < 100; i++) {
+        	//这里的final是关键，只有第一份的 0 ，以后不可以改变
             final int timestap = money.getStamp();
+            System.out.println("-----关键信息设置为final："+timestap);
             new Thread() {
                 public void run() {
                     while (true) {
@@ -36,6 +38,7 @@ public class AtomicStampedReferenceDemo {
 
                     while (true) {
                         int timestap = money.getStamp();
+                        System.out.println("花销："+timestap);
                         Integer m = money.getReference();
                         if (m > 10) {
                             System.out.println("金额大于10元");

@@ -28,6 +28,9 @@ public class AtomicInterArrayDemo {
         }
         for (int i = 0; i < 10; i++) {
             threads[i].join();
+        }
+        //需要都运行完成，才可打印
+        for (int i = 0; i < 10; i++) {
             System.out.println(array);
         }
     }

@@ -26,7 +26,7 @@ public class ParseDateThreadLocalDemo {
                     threadLocal.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
                 }
                 Date date = threadLocal.get().parse("2017-05-06 12:33:" + i % 60);
-                System.out.println(i + ":" + date);
+//                System.out.println(i + ":" + date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -35,7 +35,7 @@ public class ParseDateThreadLocalDemo {
 
     public static void main(String args[]) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             executorService.execute(new ParseDate(i));
         }
     }
